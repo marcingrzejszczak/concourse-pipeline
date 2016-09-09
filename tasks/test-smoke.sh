@@ -30,6 +30,7 @@ retrieveArtifactId
 projectGroupId=$( retrieveGroupId )
 projectArtifactId=$( retrieveArtifactId )
 mkdir target
+logInToCf ${REDOWNLOAD_INFRA} ${CF_TEST_USERNAME} ${CF_TEST_PASSWORD} ${CF_TEST_ORG} ${CF_TEST_SPACE} ${CF_API_URL}
 propagatePropertiesForTests ${projectArtifactId}
 readTestPropertiesFromFile
 
