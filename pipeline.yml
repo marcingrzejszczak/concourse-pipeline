@@ -1,0 +1,78 @@
+---
+resources:
+ - name: repo
+   type: git
+   source:
+    uri: git@github.com:{{app-org}}/{{app-repo-name}}.git
+    branch: master
+    private_key: {{github-private-key}}
+ - name: version
+   type: semver
+   source:
+    uri: git@github.com:{{app-org}}/{{app-repo-name}}.git
+    branch: version
+    private_key: {{github-private-key}}
+    file: version
+    driver: git
+ - name: tools
+   type: git
+   source:
+    uri: https://github.com/{{tools-org}}/{{tools-repo-name}}.git
+    branch: master
+
+jobs:
+  - name: generate-version
+    serial: true
+    public: true
+    plan:
+      - aggregate:
+        - get: tools
+        - get: version
+      - task: generate-version
+        file: tools/tasks/generate-version.yml
+
+  - name: build-and-upload
+    serial: true
+    public: false
+    plan:
+      - aggregate:
+        - get: tools
+        - get: repo
+        - get: version
+          resource: version
+          passed: [ generate-version ]
+          trigger: true
+      - task: build-and-upload
+        file: tools/tasks/build-and-upload.yml
+
+  - name: test-deploy
+    serial: true
+    public: false
+    plan:
+      - aggregate:
+        - get: tools
+        - get: repo
+        - get: version
+          resource: version
+          passed: [ build-and-upload ]
+          trigger: true
+      - task: test-deploy
+        file: tools/tasks/test-deploy.yml
+
+#- name: job-show-date
+#  plan:
+#  - get: resource-tutorial
+#  - get: resource-gist
+#    passed: [job-bump-date]
+#    trigger: true
+#  - task: show-date
+#    config:
+#      platform: linux
+#      image_resource:
+#        type: docker-image
+#        source: {repository: busybox}
+#      inputs:
+#        - name: resource-gist
+#      run:
+#        path: cat
+#        args: [resource-gist/bumpme]

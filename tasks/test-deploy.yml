@@ -1,0 +1,37 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: java
+    tag: 8-jdk-alpine
+inputs:
+  - name: tools
+  - name: repo
+  - name: version
+outputs:
+  - name: output
+run:
+  path: bash
+  args:
+    - tools/tasks/test-deploy.sh
+params:
+  _JAVA_OPTIONS: -Djava.security.egd=file:/dev/./urandom
+  GIT_EMAIL: {{git-email}}
+  GIT_NAME: {{git-name}}
+  REDOWNLOAD_INFRA: {{redownload-infra}}
+  REDEPLOY_INFRA: {{redeploy-infra}}
+  EUREKA_GROUP_ID: {{eureka-group-id}}
+  EUREKA_ARTIFACT_ID: {{eureka-artifact-id}}
+  EUREKA_VERSION: {{eureka-version}}
+  STUBRUNNER_GROUP_ID: {{stubrunner-group-id}}
+  STUBRUNNER_ARTIFACT_ID: {{stubrunner-artifact-id}}
+  STUBRUNNER_VERSION: {{stubrunner-version}}
+  M2_SETTINGS_REPO_ID: {{m2-settings-repo-id}}
+  M2_SETTINGS_USERNAME: {{m2-settings-username}}
+  M2_SETTINGS_PASSWORD: {{m2-settings-password}}
+  REPO_WITH_JARS: {{repo-with-jars}}
+  CF_TEST_USERNAME: {{cf-test-username}}
+  CF_TEST_PASSWORD: {{cf-test-password}}
+  CF_TEST_ORG: {{cf-test-org}}
+  CF_TEST_SPACE: {{cf-test-space}}
