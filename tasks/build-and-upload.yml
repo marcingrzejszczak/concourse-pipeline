@@ -12,6 +12,6 @@ inputs:
 outputs:
   - name: output
 run:
-  path: bash
+  path: /bin/bash
   args:
     - tools/tasks/build-and-upload.sh

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #VERSION=1.0.0.RELEASE-`date +%Y%m%d_%H%M%S`-VERSION
 VERSION=1.0.0.M1
