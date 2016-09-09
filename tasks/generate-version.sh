@@ -4,10 +4,11 @@
 VERSION=1.0.0.M1
 MESSAGE="[Concourse CI] Bump to Next Version ($VERSION)"
 
+ls -al
 cd out
 
 mv -f ../version/* ./
-
+ls -al
 echo "Bump to ${VERSION}"
 echo "${VERSION}" > version
 git config --global user.email "${GIT_EMAIL}"
