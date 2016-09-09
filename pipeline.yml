@@ -22,9 +22,8 @@ jobs:
   - name: generate-version
     public: true
     plan:
-      - aggregate:
-        - get: tools
-        - get: version
+      - get: tools
+      - get: version
       - task: generate-version
         file: tools/tasks/generate-version.yml
         params:
