@@ -19,7 +19,7 @@ echo "Generating settings.xml for Maven in local m2"
 . ${CONCOURSE_RESOURCE}/tasks/generate-settings.sh
 
 echo "Building and uploading the projects artifacts"
-. ${CONCOURSE_RESOURCE}/tasks/build-and-upload.sh
+. ${SCRIPTS_OUTPUT_FOLDER}/tasks/build_and_upload.sh
 
 echo "Tagging the project with dev tag"
 echo "dev/${PIPELINE_VERSION}" > ${REPO_RESOURCE}/target/tag
