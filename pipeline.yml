@@ -104,6 +104,11 @@ jobs:
           - STUBRUNNER_VERSION: {{stubrunner-version}}
           - REPO_WITH_JARS: {{repo-with-jars}}
           - M2_REPO: {{maven-local-dir}}
+          - CF_TEST_USERNAME: {{cf-test-username}}
+          - CF_TEST_PASSWORD: {{cf-test-password}}
+          - CF_TEST_ORG: {{cf-test-org}}
+          - CF_TEST_SPACE: {{cf-test-space}}
+          - CF_API_URL: {{cf-api}}
 
 #- name: job-show-date
 #  plan:
