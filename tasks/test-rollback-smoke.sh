@@ -19,8 +19,22 @@ source ${ROOT_FOLDER}/${CONCOURSE_RESOURCE}/tasks/pipeline.sh
 PIPELINE_VERSION=0.0.1.M1
 
 # Should come with the image
-apt-get update && yes | apt-get install curl
+apt-get update && yes | apt-get install curl git
 
-echo "Deploying the built application on test environment"
+echo "Testing the built application on test environment"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
-. ${SCRIPTS_OUTPUT_FOLDER}/test_deploy.sh
+
+echo "Retrieving group and artifact id - it can take a while..."
+retrieveGroupId
+retrieveArtifactId
+projectGroupId=$( retrieveGroupId )
+projectArtifactId=$( retrieveArtifactId )
+mkdir target
+propagatePropertiesForTests ${projectArtifactId}
+readTestPropertiesFromFile
+
+echo "Resolving latest prod tag"
+LATEST_PROD_TAG=$( findLatestProdTag )
+
+echo "Retrieved application and stub runner urls"
+. ${SCRIPTS_OUTPUT_FOLDER}/test_rollback_smoke.sh

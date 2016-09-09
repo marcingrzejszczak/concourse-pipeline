@@ -21,6 +21,17 @@ PIPELINE_VERSION=0.0.1.M1
 # Should come with the image
 apt-get update && yes | apt-get install curl
 
-echo "Deploying the built application on test environment"
+echo "Testing the built application on test environment"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
-. ${SCRIPTS_OUTPUT_FOLDER}/test_deploy.sh
+
+echo "Retrieving group and artifact id - it can take a while..."
+retrieveGroupId
+retrieveArtifactId
+projectGroupId=$( retrieveGroupId )
+projectArtifactId=$( retrieveArtifactId )
+mkdir target
+propagatePropertiesForTests ${projectArtifactId}
+readTestPropertiesFromFile
+
+echo "Retrieved application and stub runner urls"
+. ${SCRIPTS_OUTPUT_FOLDER}/test_smoke.sh

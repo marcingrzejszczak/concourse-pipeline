@@ -23,4 +23,4 @@ apt-get update && yes | apt-get install curl
 
 echo "Deploying the built application on test environment"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
-. ${SCRIPTS_OUTPUT_FOLDER}/test_deploy.sh
+. ${SCRIPTS_OUTPUT_FOLDER}/prod_complete.sh
