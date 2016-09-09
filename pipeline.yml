@@ -21,7 +21,7 @@ resources:
    type: git
    source:
     uri: {{pipeline-tools-url}}
-    branch: wip
+    branch: master
 
 jobs:
   - name: generate-version
@@ -31,7 +31,7 @@ jobs:
         - get: concourse
         - get: version
       - task: generate-version
-        file: tools/tasks/generate-version.yml
+        file: concourse/tasks/generate-version.yml
         params:
           - GIT_EMAIL: {{git-email}}
           - GIT_NAME: {{git-name}}
@@ -52,7 +52,7 @@ jobs:
           passed: [ generate-version ]
           trigger: true
       - task: build-and-upload
-        file: tools/tasks/build-and-upload.yml
+        file: concourse/tasks/build-and-upload.yml
         params:
           - _JAVA_OPTIONS: -Djava.security.egd=file:/dev/./urandom
           - GIT_EMAIL: {{git-email}}
@@ -83,7 +83,7 @@ jobs:
           passed: [ build-and-upload ]
           trigger: true
       - task: test-deploy
-        file: tools/tasks/test-deploy.yml
+        file: concourse/tasks/test-deploy.yml
         params:
           - _JAVA_OPTIONS: -Djava.security.egd=file:/dev/./urandom
           - GIT_EMAIL: {{git-email}}
