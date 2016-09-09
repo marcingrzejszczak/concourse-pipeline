@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #VERSION=1.0.0.RELEASE-`date +%Y%m%d_%H%M%S`-VERSION
 VERSION=1.0.0.M1
@@ -15,3 +15,4 @@ git config --global user.email "${GIT_EMAIL}"
 git config --global user.name "${GIT_NAME}"
 git add version
 git commit -m "${MESSAGE}"
+git push

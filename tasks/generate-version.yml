@@ -11,6 +11,6 @@ inputs:
 outputs:
   - name: out
 run:
-  path: /bin/bash
+  path: /bin/sh
   args:
     - tools/tasks/generate-version.sh

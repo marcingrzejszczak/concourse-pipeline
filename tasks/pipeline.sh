@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 export ROOT_FOLDER=$( pwd )
 export REPO_RESOURCE=repo
