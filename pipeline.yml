@@ -26,13 +26,13 @@ jobs:
       - aggregate:
         - get: tools
         - get: version
-        - put: version
-          params: {repository: version}
       - task: generate-version
         file: tools/tasks/generate-version.yml
         params:
           - GIT_EMAIL: {{git-email}}
           - GIT_NAME: {{git-name}}
+      - put: version
+        params: {file: version/version}
 
   - name: build-and-upload
     serial: true

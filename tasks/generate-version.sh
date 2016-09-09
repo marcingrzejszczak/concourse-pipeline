@@ -14,4 +14,3 @@ git config --global user.email "${GIT_EMAIL}"
 git config --global user.name "${GIT_NAME}"
 git add version
 git commit -m "${MESSAGE}"
-yes | git push origin version
