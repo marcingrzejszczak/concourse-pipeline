@@ -15,7 +15,11 @@ echo "Version resource folder is [${VERSION_RESOURCE}]"
 
 source ${ROOT_FOLDER}/${CONCOURSE_RESOURCE}/tasks/pipeline.sh
 
+#Hardcoding for test purposes
 PIPELINE_VERSION=1.0.0.M1
+
+# Should come with the image
+apt-get update && yes | apt-get install curl tr cut
 
 echo "Testing the built application on test environment"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
