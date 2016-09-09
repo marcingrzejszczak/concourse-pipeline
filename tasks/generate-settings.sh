@@ -1,11 +1,13 @@
 #!/bin/bash
 
-mkdir -p ~/.m2/
+[[ -z "${M2_REPO}" ]] && M2_REPO=~/.m2/
+
+mkdir -p ${M2_REPO}
 
 echo "Writing settings xml"
 
 set +x
-cat > ~/.m2/settings.xml <<EOF
+cat > ${M2_REPO}/settings.xml <<EOF
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0

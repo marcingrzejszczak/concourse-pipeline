@@ -69,6 +69,7 @@ jobs:
           - M2_SETTINGS_REPO_USERNAME: {{m2-settings-repo-username}}
           - M2_SETTINGS_REPO_PASSWORD: {{m2-settings-repo-password}}
           - REPO_WITH_JARS: {{repo-with-jars}}
+          - M2_REPO: {{maven-local-dir}}
       - put: repo
         params:
           repository: repo
@@ -102,6 +103,7 @@ jobs:
           - STUBRUNNER_ARTIFACT_ID: {{stubrunner-artifact-id}}
           - STUBRUNNER_VERSION: {{stubrunner-version}}
           - REPO_WITH_JARS: {{repo-with-jars}}
+          - M2_REPO: {{maven-local-dir}}
 
 #- name: job-show-date
 #  plan:
