@@ -26,6 +26,8 @@ jobs:
       - aggregate:
         - get: tools
         - get: version
+        - put: version
+          params: {repository: version}
       - task: generate-version
         file: tools/tasks/generate-version.yml
         params:
