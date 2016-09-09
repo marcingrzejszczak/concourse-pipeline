@@ -10,6 +10,6 @@ inputs:
 outputs:
   - name: out
 run:
-  path: /bin/bash
+  path: /bin/sh
   args:
     - concourse/tasks/generate-version.sh

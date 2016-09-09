@@ -12,6 +12,6 @@ inputs:
 outputs:
   - name: output
 run:
-  path: bash
+  path: /bin/sh
   args:
     - concourse/tasks/build-and-upload.sh
