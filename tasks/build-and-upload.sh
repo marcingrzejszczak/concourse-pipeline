@@ -20,7 +20,9 @@ echo "Generating settings.xml for Maven in local m2"
 
 echo "Building and uploading the projects artifacts"
 cd ${REPO_RESOURCE}
-./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION} -Pmilestone
+# settings.xml should come with the box
+#./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION}
+./mvnw clean verify install -Dversion=${PIPELINE_VERSION}
 
 echo "Tagging the project with dev tag"
 echo "dev/${PIPELINE_VERSION}" > ${REPO_RESOURCE}/target/tag
