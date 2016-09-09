@@ -5,7 +5,7 @@ export REPO_RESOURCE=repo
 export TOOLS_RESOURCE=tools
 export CONCOURSE_RESOURCE=concourse
 export VERSION_RESOURCE=version
-export OUTPUT_RESOURCE=output
+export OUTPUT_RESOURCE=out
 
 echo "Root folder is [${ROOT_FOLDER}]"
 echo "Repo resource folder is [${REPO_RESOURCE}]"
