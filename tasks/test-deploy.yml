@@ -7,6 +7,7 @@ image_resource:
     tag: 8-jdk-alpine
 inputs:
   - name: tools
+  - name: concourse
   - name: repo
   - name: version
 outputs:
@@ -14,4 +15,4 @@ outputs:
 run:
   path: bash
   args:
-    - tools/tasks/test-deploy.sh
+    - concourse/tasks/test-deploy.sh
