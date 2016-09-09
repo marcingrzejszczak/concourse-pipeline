@@ -25,6 +25,6 @@ cat > ${M2_REPO}/settings.xml <<EOF
 EOF
 #set -x
 
-cat ${M2_REPO/settings.xml
+cat ${M2_REPO}/settings.xml
 
 echo "Settings xml written"
