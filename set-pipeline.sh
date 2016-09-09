@@ -1,3 +1,5 @@
 #!/bin/bash
 
-echo y | fly -t tutorial sp -p demo -c pipeline.yml -l credentials.yml
+CREDENTIALS=${1:-credentials.yml}
+
+echo y | fly -t tutorial sp -p demo -c pipeline.yml -l ${CREDENTIALS}
