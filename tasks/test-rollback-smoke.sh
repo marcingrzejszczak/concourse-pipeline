@@ -38,4 +38,9 @@ echo "Resolving latest prod tag"
 LATEST_PROD_TAG=$( findLatestProdTag )
 
 echo "Retrieved application and stub runner urls"
-. ${SCRIPTS_OUTPUT_FOLDER}/test_rollback_smoke.sh
+if [[ -z "${LATEST_PROD_TAG}" || "${LATEST_PROD_TAG}" == "master" ]]; then
+    echo "No prod release took place - skipping this step"
+else
+    git checkout "${LATEST_PROD_TAG}"
+    . ${SCRIPTS_OUTPUT_FOLDER}/test_rollback_smoke.sh
+fi
