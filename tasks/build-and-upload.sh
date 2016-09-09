@@ -22,7 +22,6 @@ echo "Building and uploading the projects artifacts"
 cd ${REPO_RESOURCE}
 
 ./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION} ${MAVEN_ARGS}
-#./mvnw clean verify install -Dversion=${PIPELINE_VERSION}
 
 echo "Tagging the project with dev tag"
 mkdir -p ${ROOT_FOLDER}/${REPO_RESOURCE}/target/
