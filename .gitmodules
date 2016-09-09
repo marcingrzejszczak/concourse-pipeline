@@ -1,3 +1,3 @@
 [submodule "jenkins-pipeline"]
 	path = jenkins-pipeline
-	url = git@github.com:marcingrzejszczak/jenkins-pipeline.git
+	url = https://github.com/marcingrzejszczak/jenkins-pipeline.git
