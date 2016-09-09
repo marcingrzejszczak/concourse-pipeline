@@ -20,7 +20,6 @@ resources:
 
 jobs:
   - name: generate-version
-    serial: true
     public: true
     plan:
       - aggregate:
@@ -32,7 +31,8 @@ jobs:
           - GIT_EMAIL: {{git-email}}
           - GIT_NAME: {{git-name}}
       - put: version
-        params: {file: version/version}
+        params:
+          repository: out
 
   - name: build-and-upload
     serial: true
