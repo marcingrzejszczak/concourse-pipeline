@@ -11,7 +11,7 @@ inputs:
   - name: version
   - name: m2
 outputs:
-  - name: output
+  - name: out
 run:
   path: /bin/bash
   args:
