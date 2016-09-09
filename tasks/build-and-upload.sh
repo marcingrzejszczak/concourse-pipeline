@@ -25,12 +25,10 @@ cd ${REPO_RESOURCE}
 #./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION}
 #./mvnw clean verify install -Dversion=${PIPELINE_VERSION}
 
-mkdir -p ${ROOT_FOLDER}/${REPO_RESOURCE}/target/
-
 echo "Tagging the project with dev tag"
-echo "dev/${PIPELINE_VERSION}" > ${ROOT_FOLDER}/${REPO_RESOURCE}/target/tag
+echo "dev/${PIPELINE_VERSION}" > ${ROOT_FOLDER}/${REPO_RESOURCE}/tag
 
-cat ${ROOT_FOLDER}/${REPO_RESOURCE}/target/tag
+cat ${ROOT_FOLDER}/${REPO_RESOURCE}/tag
 
 # WE CAN USE OUTPUT TO ARCHIVE THE RESULTS?
 #mkdir -p ${OUTPUT_RESOURCE}/junit
