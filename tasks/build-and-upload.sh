@@ -22,7 +22,7 @@ echo "Building and uploading the projects artifacts"
 cd ${REPO_RESOURCE}
 
 # settings.xml should come with the box, I can't deploy the artifacts
-#./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION}
+./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION}
 #./mvnw clean verify install -Dversion=${PIPELINE_VERSION}
 
 echo "Tagging the project with dev tag"
@@ -30,8 +30,6 @@ mkdir -p ${ROOT_FOLDER}/${REPO_RESOURCE}/target/
 echo "dev/${PIPELINE_VERSION}" > ${ROOT_FOLDER}/${REPO_RESOURCE}/target/tag
 
 cp -r ${ROOT_FOLDER}/${REPO_RESOURCE}/. ${ROOT_FOLDER}/${OUTPUT_RESOURCE}/
-
-ls -al ${ROOT_FOLDER}/${OUTPUT_RESOURCE}/
 
 # WE CAN USE OUTPUT TO ARCHIVE THE RESULTS?
 #mkdir -p ${OUTPUT_RESOURCE}/junit
