@@ -22,6 +22,10 @@ resources:
    source:
     uri: {{pipeline-tools-url}}
     branch: master
+ - name: m2
+   type: docker-image
+   source:
+    repository: making/m2
 
 jobs:
   - name: generate-version
@@ -47,6 +51,7 @@ jobs:
         - get: tools
         - get: concourse
         - get: repo
+        - get: m2
         - get: version
           resource: version
           passed: [ generate-version ]
@@ -84,6 +89,7 @@ jobs:
         - get: tools
         - get: concourse
         - get: repo
+        - get: m2
         - get: version
           resource: version
           passed: [ build-and-upload ]
@@ -118,6 +124,7 @@ jobs:
         - get: tools
         - get: concourse
         - get: repo
+        - get: m2
         - get: version
           resource: version
           passed: [ test-deploy ]
@@ -152,6 +159,7 @@ jobs:
         - get: tools
         - get: concourse
         - get: repo
+        - get: m2
         - get: version
           resource: version
           passed: [ test-smoke ]
@@ -186,6 +194,7 @@ jobs:
         - get: tools
         - get: concourse
         - get: repo
+        - get: m2
         - get: version
           resource: version
           passed: [ test-rollback-deploy ]
@@ -220,6 +229,7 @@ jobs:
         - get: tools
         - get: concourse
         - get: repo
+        - get: m2
         - get: version
           resource: version
           passed: [ test-rollback-smoke ]
@@ -254,6 +264,7 @@ jobs:
         - get: tools
         - get: concourse
         - get: repo
+        - get: m2
         - get: version
           resource: version
           passed: [ stage-deploy ]
@@ -288,6 +299,7 @@ jobs:
         - get: tools
         - get: concourse
         - get: repo
+        - get: m2
         - get: version
           resource: version
           passed: [ stage-smoke ]
@@ -322,6 +334,7 @@ jobs:
         - get: tools
         - get: concourse
         - get: repo
+        - get: m2
         - get: version
           resource: version
           passed: [ prod-deploy ]
