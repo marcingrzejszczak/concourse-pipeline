@@ -28,7 +28,7 @@ jobs:
     public: true
     plan:
       - aggregate:
-        - get: tools
+        - get: concourse
         - get: version
       - task: generate-version
         file: tools/tasks/generate-version.yml
@@ -45,6 +45,7 @@ jobs:
     plan:
       - aggregate:
         - get: tools
+        - get: concourse
         - get: repo
         - get: version
           resource: version
@@ -75,6 +76,7 @@ jobs:
     plan:
       - aggregate:
         - get: tools
+        - get: concourse
         - get: repo
         - get: version
           resource: version
