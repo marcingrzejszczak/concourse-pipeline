@@ -26,6 +26,7 @@ cd ${REPO_RESOURCE}
 #./mvnw clean verify install -Dversion=${PIPELINE_VERSION}
 
 echo "Tagging the project with dev tag"
+mkdir -p ${ROOT_FOLDER}/${REPO_RESOURCE}/target/
 echo "dev/${PIPELINE_VERSION}" > ${ROOT_FOLDER}/${REPO_RESOURCE}/target/tag
 
 cp -r ${ROOT_FOLDER}/${REPO_RESOURCE}/. ${ROOT_FOLDER}/${OUTPUT_RESOURCE}/
