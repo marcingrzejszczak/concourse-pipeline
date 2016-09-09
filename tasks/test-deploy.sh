@@ -16,4 +16,5 @@ echo "Version resource folder is [${VERSION_RESOURCE}]"
 source ${CONCOURSE_RESOURCE}/tasks/pipeline.sh
 
 echo "Testing the built application on test environment"
+cd ${REPO_RESOURCE}
 . ./${SCRIPTS_OUTPUT_FOLDER}/test_deploy.sh

@@ -19,6 +19,7 @@ echo "Generating settings.xml for Maven in local m2"
 . ${CONCOURSE_RESOURCE}/tasks/generate-settings.sh
 
 echo "Building and uploading the projects artifacts"
+cd ${REPO_RESOURCE}
 . ${SCRIPTS_OUTPUT_FOLDER}/build_and_upload.sh
 
 echo "Tagging the project with dev tag"
