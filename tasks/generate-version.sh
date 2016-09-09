@@ -9,6 +9,10 @@ cd out
 cp -r ../version/. ./
 echo "Bump to ${VERSION}"
 echo "${VERSION}" > version
+
+# Specific for Github - should be fixed in the docker image
+ssh-keyscan github.com ~/.ssh/known_hosts
+
 git config --global user.email "${GIT_EMAIL}"
 git config --global user.name "${GIT_NAME}"
 git add version
