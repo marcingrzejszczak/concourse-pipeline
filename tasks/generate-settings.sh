@@ -2,7 +2,7 @@
 
 mkdir -p ${HOME}/.m2/
 
-echo "Writing settings xml"
+echo "Writing settings xml to [${HOME}/.m2/settings.xml]"
 
 set +x
 cat > ${HOME}/.m2/settings.xml <<EOF
