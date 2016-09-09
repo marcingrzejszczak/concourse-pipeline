@@ -2,7 +2,8 @@
 
 cd ${ROOT_FOLDER}/${TOOLS_RESOURCE}
 
-ls -al
+# Should be added to the box
+yes | sudo apt-get install git
 
 echo "Updating submodule"
 git submodule init
