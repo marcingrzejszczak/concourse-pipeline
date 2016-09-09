@@ -10,7 +10,7 @@ echo "Building and uploading the projects artifacts"
 
 echo "Tagging the project with dev tag"
 git tag dev/${PIPELINE_VERSION} -a -m "[Concourse CI] Dev version (${PIPELINE_VERSION})"
-git push origin --tags
+yes | git push origin --tags
 
 mkdir -p ${OUTPUT_RESOURCE}/junit
 find . -type f -regex ".*/target/.*-reports/.*" -exec cp {} ${OUTPUT_RESOURCE}/junit/ \;
