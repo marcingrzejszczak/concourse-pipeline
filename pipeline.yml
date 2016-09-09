@@ -72,7 +72,7 @@ jobs:
           - M2_REPO: {{maven-local-dir}}
       - put: repo
         params:
-          repository: out
+          repository: repo
           tag: tag
           only_tag: true
 
