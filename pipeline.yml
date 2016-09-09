@@ -7,18 +7,16 @@ resources:
     branch: master
     private_key: {{github-private-key}}
  - name: version
-   type: semver
+   type: git
    source:
     uri: {{app-url}}
     branch: version
     private_key: {{github-private-key}}
-    file: version
-    driver: git
  - name: tools
    type: git
    source:
     uri: {{tools-url}}
-    branch: master
+    branch: wip
 
 jobs:
   - name: generate-version
