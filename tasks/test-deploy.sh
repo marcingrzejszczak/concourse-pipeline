@@ -13,8 +13,8 @@ echo "Tools resource folder is [${TOOLS_RESOURCE}]"
 echo "Concourse resource folder is [${CONCOURSE_RESOURCE}]"
 echo "Version resource folder is [${VERSION_RESOURCE}]"
 
-source ${CONCOURSE_RESOURCE}/tasks/pipeline.sh
+source ${ROOT_FOLDER}/${CONCOURSE_RESOURCE}/tasks/pipeline.sh
 
 echo "Testing the built application on test environment"
-cd ${REPO_RESOURCE}
+cd ${ROOT_FOLDER}/${REPO_RESOURCE}
 . ./${SCRIPTS_OUTPUT_FOLDER}/test_deploy.sh
