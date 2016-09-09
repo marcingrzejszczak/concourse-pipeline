@@ -1,0 +1,14 @@
+= Opinionated Concourse Pipeline
+
+The repository builds the https://github.com/dsyer/github-analytics[Github Analytics] application
+that uses:
+
+- Spring Cloud
+- Spring Cloud Contract
+- Maven Wrapper
+- Deploys artifacts by `./mvnw clean deploy`
+- Runs the smoke tests on a deployed app via the `integration` Maven profile
+
+== Steps
+
+TBD

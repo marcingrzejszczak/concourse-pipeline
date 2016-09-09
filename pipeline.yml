@@ -325,6 +325,11 @@ jobs:
           - CF_PROD_ORG: {{cf-prod-org}}
           - CF_PROD_SPACE: {{cf-prod-space}}
           - CF_API_URL: {{cf-api}}
+      - put: repo
+        params:
+          repository: out
+          tag: out/target/tag
+          only_tag: true
 
   - name: prod-complete
     serial: true

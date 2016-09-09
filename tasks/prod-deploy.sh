@@ -25,3 +25,8 @@ echo "Retrieving group and artifact id - it can take a while..."
 retrieveGroupId
 retrieveArtifactId
 . ${SCRIPTS_OUTPUT_FOLDER}/prod_deploy.sh
+
+echo "Tagging the project with prod tag"
+mkdir -p ${ROOT_FOLDER}/${REPO_RESOURCE}/target/
+echo "prod/${PIPELINE_VERSION}" > ${ROOT_FOLDER}/${REPO_RESOURCE}/target/tag
+cp -r ${ROOT_FOLDER}/${REPO_RESOURCE}/. ${ROOT_FOLDER}/${OUTPUT_RESOURCE}/
