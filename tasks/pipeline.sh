@@ -5,13 +5,6 @@ echo "Scripts will be copied to [${SCRIPTS_OUTPUT_FOLDER}]"
 
 cd ${ROOT_FOLDER}/${TOOLS_RESOURCE}
 
-# Should be added to the box
-yes | apt-get install git
-
-echo "Updating submodule"
-git submodule init
-git submodule update
-
 echo "Copying pipelines scripts"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
 mkdir ${SCRIPTS_OUTPUT_FOLDER}
