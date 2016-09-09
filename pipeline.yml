@@ -12,22 +12,26 @@ resources:
     uri: {{app-url}}
     branch: version
     private_key: {{github-private-key}}
+ - name: concourse
+   type: git
+   source:
+    uri: {{concourse-scripts-url}}
+    branch: wip
  - name: tools
    type: git
    source:
-    uri: {{tools-url}}
+    uri: {{pipeline-tools-url}}
     branch: master
-   submodules: all
 
 jobs:
   - name: generate-version
     public: true
     plan:
       - aggregate:
-        - get: tools
+        - get: concourse
         - get: version
       - task: generate-version
-        file: tools/tasks/generate-version.yml
+        file: concourse/tasks/generate-version.yml
         params:
           - GIT_EMAIL: {{git-email}}
           - GIT_NAME: {{git-name}}
@@ -41,13 +45,14 @@ jobs:
     plan:
       - aggregate:
         - get: tools
+        - get: concourse
         - get: repo
         - get: version
           resource: version
           passed: [ generate-version ]
           trigger: true
       - task: build-and-upload
-        file: tools/tasks/build-and-upload.yml
+        file: concourse/tasks/build-and-upload.yml
         params:
           - _JAVA_OPTIONS: -Djava.security.egd=file:/dev/./urandom
           - GIT_EMAIL: {{git-email}}
@@ -76,13 +81,14 @@ jobs:
     plan:
       - aggregate:
         - get: tools
+        - get: concourse
         - get: repo
         - get: version
           resource: version
           passed: [ build-and-upload ]
           trigger: true
       - task: test-deploy
-        file: tools/tasks/test-deploy.yml
+        file: concourse/tasks/test-deploy.yml
         params:
           - _JAVA_OPTIONS: -Djava.security.egd=file:/dev/./urandom
           - GIT_EMAIL: {{git-email}}
