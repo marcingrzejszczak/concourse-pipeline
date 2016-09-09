@@ -17,4 +17,4 @@ source ${ROOT_FOLDER}/${CONCOURSE_RESOURCE}/tasks/pipeline.sh
 
 echo "Testing the built application on test environment"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
-. ./${SCRIPTS_OUTPUT_FOLDER}/test_deploy.sh
+. ${SCRIPTS_OUTPUT_FOLDER}/test_deploy.sh
