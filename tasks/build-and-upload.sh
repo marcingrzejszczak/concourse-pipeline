@@ -21,7 +21,6 @@ echo "Generating settings.xml for Maven in local m2"
 echo "Building and uploading the projects artifacts"
 cd ${REPO_RESOURCE}
 
-# settings.xml should come with the box, I can't deploy the artifacts
 ./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION}
 #./mvnw clean verify install -Dversion=${PIPELINE_VERSION}
 

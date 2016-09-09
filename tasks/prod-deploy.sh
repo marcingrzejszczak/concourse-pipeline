@@ -21,7 +21,7 @@ PIPELINE_VERSION=0.0.1.M1
 # Should come with the image
 apt-get update && yes | apt-get install curl
 
-echo "Deploying the built application on test environment"
+echo "Deploying the built application on prod environment"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
 
 echo "Retrieving group and artifact id - it can take a while..."
