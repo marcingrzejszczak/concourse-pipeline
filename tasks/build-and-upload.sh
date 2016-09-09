@@ -5,7 +5,7 @@ export REPO_RESOURCE=repo
 export TOOLS_RESOURCE=tools
 export CONCOURSE_RESOURCE=concourse
 export VERSION_RESOURCE=version
-export OUTPUT_RESOURCE=output
+export OUTPUT_RESOURCE=out
 
 echo "Root folder is [${ROOT_FOLDER}]"
 echo "Repo resource folder is [${REPO_RESOURCE}]"
@@ -22,8 +22,7 @@ echo "Building and uploading the projects artifacts"
 . ./${SCRIPTS_OUTPUT_FOLDER}/build-and-upload.sh
 
 echo "Tagging the project with dev tag"
-git tag dev/${PIPELINE_VERSION} -a -m "[Concourse CI] Dev version (${PIPELINE_VERSION})"
-yes | git push origin --tags
+echo "dev/${PIPELINE_VERSION}" > ${REPO_RESOURCE}/target/tag
 
-mkdir -p ${OUTPUT_RESOURCE}/junit
-find . -type f -regex ".*/target/.*-reports/.*" -exec cp {} ${OUTPUT_RESOURCE}/junit/ \;
+#mkdir -p ${OUTPUT_RESOURCE}/junit
+#find . -type f -regex ".*/target/.*-reports/.*" -exec cp {} ${OUTPUT_RESOURCE}/junit/ \;

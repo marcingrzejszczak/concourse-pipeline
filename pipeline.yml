@@ -69,6 +69,11 @@ jobs:
           - M2_SETTINGS_USERNAME: {{m2-settings-username}}
           - M2_SETTINGS_PASSWORD: {{m2-settings-password}}
           - REPO_WITH_JARS: {{repo-with-jars}}
+      - put: repo
+        params:
+          repository: repo
+          tag: repo/target/tag
+          only_tag: true
 
   - name: test-deploy
     serial: true

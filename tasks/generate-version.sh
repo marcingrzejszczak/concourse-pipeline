@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#VERSION=1.0.0.RELEASE-`date +%Y%m%d_%H%M%S`-VERSION
-VERSION=1.0.0.M1
+VERSION=1.0.0.RELEASE-`date +%Y%m%d_%H%M%S`-VERSION
 MESSAGE="[Concourse CI] Bump to Next Version ($VERSION)"
 
 cd out
