@@ -7,12 +7,10 @@ MESSAGE="[Concourse CI] Bump to Next Version ($VERSION)"
 ls -al version/
 cd out
 
-mv -f ../version/* ./
+cp -r ../version/ ./
 ls -al
 echo "Bump to ${VERSION}"
 echo "${VERSION}" > version
-#git init
-#git remote add -f version ${APP_URL}
 git config --global user.email "${GIT_EMAIL}"
 git config --global user.name "${GIT_NAME}"
 git add version
