@@ -19,7 +19,7 @@ source ${ROOT_FOLDER}/${CONCOURSE_RESOURCE}/tasks/pipeline.sh
 PIPELINE_VERSION=1.0.0.M1
 
 # Should come with the image
-apt-get update && yes | apt-get install curl tr cut
+apt-get update && yes | apt-get install curl
 
 echo "Testing the built application on test environment"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
