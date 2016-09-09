@@ -10,6 +10,7 @@ cp -r ../version/. ./
 echo "Bump to ${VERSION}"
 echo "${VERSION}" > version
 
+# Should come with the image already
 apt-get update && yes | apt-get install git
 
 git config --global user.email "${GIT_EMAIL}"
