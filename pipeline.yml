@@ -12,23 +12,19 @@ resources:
     uri: {{app-url}}
     branch: version
     private_key: {{github-private-key}}
- - name: concourse
-   type: git
-   source:
-    uri: {{concourse-scripts-url}}
-    branch: wip
  - name: tools
    type: git
    source:
-    uri: {{pipeline-tools-url}}
+    uri: {{tools-url}}
     branch: master
+   submodules: all
 
 jobs:
   - name: generate-version
     public: true
     plan:
       - aggregate:
-        - get: concourse
+        - get: tools
         - get: version
       - task: generate-version
         file: concourse/tasks/generate-version.yml
