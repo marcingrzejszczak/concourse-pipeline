@@ -12,10 +12,15 @@ resources:
     uri: {{app-url}}
     branch: version
     private_key: {{github-private-key}}
+ - name: concourse
+   type: git
+   source:
+    uri: {{concourse-scripts-url}}
+    branch: wip
  - name: tools
    type: git
    source:
-    uri: {{tools-url}}
+    uri: {{pipeline-tools-url}}
     branch: wip
 
 jobs:
