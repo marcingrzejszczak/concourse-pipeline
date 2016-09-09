@@ -13,9 +13,6 @@ echo "Tools resource folder is [${TOOLS_RESOURCE}]"
 echo "Concourse resource folder is [${CONCOURSE_RESOURCE}]"
 echo "Version resource folder is [${VERSION_RESOURCE}]"
 
-echo ${PATH}
-ls -al /bin/
-
 source "${CONCOURSE_RESOURCE}"/tasks/pipeline.sh
 
 echo "Generating settings.xml for Maven in local m2"
