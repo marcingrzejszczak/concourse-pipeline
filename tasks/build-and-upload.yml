@@ -10,7 +10,7 @@ inputs:
   - name: repo
   - name: version
 outputs:
-  - name: repo
+  - name: out
 run:
   path: /bin/bash
   args:
