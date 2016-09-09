@@ -10,7 +10,7 @@ cp -r ../version/. ./
 echo "Bump to ${VERSION}"
 echo "${VERSION}" > version
 
-apt-get install git
+apt-get update && yes | apt-get install git
 
 git config --global user.email "${GIT_EMAIL}"
 git config --global user.name "${GIT_NAME}"
