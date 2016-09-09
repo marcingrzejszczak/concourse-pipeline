@@ -14,3 +14,7 @@ run:
   path: /bin/bash
   args:
     - tools/tasks/generate-version.sh
+params:
+  GIT_EMAIL: {{git-email}}
+  GIT_NAME: {{git-name}}
+  APP_URL: {{app-url}}
