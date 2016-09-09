@@ -6,7 +6,7 @@ mkdir -p ${M2_REPO}
 
 echo "Writing settings xml"
 
-#set +x
+set +x
 cat > ${M2_REPO}/settings.xml <<EOF
 
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
@@ -23,8 +23,6 @@ cat > ${M2_REPO}/settings.xml <<EOF
 </settings>
 
 EOF
-#set -x
-
-cat ${M2_REPO}/settings.xml
+set -x
 
 echo "Settings xml written"
