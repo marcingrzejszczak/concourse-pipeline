@@ -25,6 +25,8 @@ cd ${REPO_RESOURCE}
 #./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION}
 #./mvnw clean verify install -Dversion=${PIPELINE_VERSION}
 
+mkdir -p ${ROOT_FOLDER}/${REPO_RESOURCE}/target/
+
 echo "Tagging the project with dev tag"
 echo "dev/${PIPELINE_VERSION}" > ${ROOT_FOLDER}/${REPO_RESOURCE}/target/tag
 
