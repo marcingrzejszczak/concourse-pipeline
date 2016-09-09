@@ -3,13 +3,13 @@ resources:
  - name: repo
    type: git
    source:
-    uri: git@github.com:{{app-org}}/{{app-repo-name}}.git
+    uri: {{app-url}}
     branch: master
     private_key: {{github-private-key}}
  - name: version
    type: semver
    source:
-    uri: git@github.com:{{app-org}}/{{app-repo-name}}.git
+    uri: {{app-url}}
     branch: version
     private_key: {{github-private-key}}
     file: version
@@ -17,7 +17,7 @@ resources:
  - name: tools
    type: git
    source:
-    uri: https://github.com/{{tools-org}}/{{tools-repo-name}}.git
+    uri: {{tools-url}}
     branch: master
 
 jobs:
