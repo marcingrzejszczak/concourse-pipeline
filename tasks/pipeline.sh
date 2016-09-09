@@ -1,6 +1,9 @@
 #!/bin/bash
 
-cd ${ROOT_FOLDER}/tools
+cd ${ROOT_FOLDER}/${TOOLS_RESOURCE}
+
+ls -al
+
 echo "Updating submodule"
 git submodule init
 git submodule update
