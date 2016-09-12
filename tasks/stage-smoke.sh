@@ -15,9 +15,6 @@ echo "Version resource folder is [${VERSION_RESOURCE}]"
 
 source ${ROOT_FOLDER}/${CONCOURSE_RESOURCE}/tasks/pipeline.sh
 
-# Should come with the image
-apt-get update && yes | apt-get install curl
-
 echo "Testing the built application on stage environment"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
 
