@@ -25,8 +25,10 @@ resources:
  - name: m2
    type: docker-image
    source:
-    repository: making/m2
-
+    repository: making/spring-pipeline-m2
+    username: {{docker-username}}
+    password: {{docker-password}}
+    email: {{docker-email}}
 jobs:
   - name: generate-version
     public: true
@@ -365,3 +367,57 @@ jobs:
           - CF_PROD_ORG: {{cf-prod-org}}
           - CF_PROD_SPACE: {{cf-prod-space}}
           - CF_API_URL: {{cf-api}}
+
+  - name: init-m2
+    plan:
+      - aggregate:
+        - get: repo
+        - get: concourse
+      - task: build-m2
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: making/alpine-java-bash-git
+          inputs:
+            - name: repo
+            - name: concourse
+          outputs:
+            - name: to-push
+          run:
+            path: sh
+            args:
+            - concourse/tasks/cache-m2.sh
+            - init
+      - put: m2
+        params:
+          import_file: to-push/rootfs.tar
+
+  - name: update-m2
+    plan:
+      - aggregate:
+        - get: repo
+          trigger: true
+        - get: concourse
+        - get: m2
+      - task: build-m2
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: making/alpine-java-bash-git
+          inputs:
+            - name: repo
+            - name: concourse
+            - name: m2
+          outputs:
+            - name: to-push
+          run:
+            path: sh
+            args:
+            - concourse/tasks/cache-m2.sh
+      - put: m2
+        params:
+          import_file: to-push/rootfs.tar
