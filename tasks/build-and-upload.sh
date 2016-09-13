@@ -21,7 +21,7 @@ echo "Generating settings.xml for Maven in local m2"
 echo "Building and uploading the projects artifacts"
 cd ${REPO_RESOURCE}
 
-./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION} ${MAVEN_ARGS}
+./mvnw clean verify deploy -Dversion=${PIPELINE_VERSION} -Ddistribution.management.release.id=${M2_SETTINGS_REPO_ID} -Ddistribution.management.release.url=${REPO_WITH_JARS} ${MAVEN_ARGS}
 
 echo "Tagging the project with dev tag"
 mkdir -p ${ROOT_FOLDER}/${REPO_RESOURCE}/target/
