@@ -235,7 +235,7 @@ jobs:
         - get: version
           resource: version
           passed: [ test-rollback-smoke ]
-          trigger: true
+          trigger: false
       - task: stage-deploy
         file: concourse/tasks/stage-deploy.yml
         params:
@@ -258,7 +258,7 @@ jobs:
           - CF_STAGE_SPACE: {{cf-stage-space}}
           - CF_API_URL: {{cf-api}}
 
-  - name: stage-smoke
+  - name: stage-e2e
     serial: true
     public: false
     plan:
@@ -270,9 +270,9 @@ jobs:
         - get: version
           resource: version
           passed: [ stage-deploy ]
-          trigger: true
+          trigger: false
       - task: stage-smoke
-        file: concourse/tasks/stage-smoke.yml
+        file: concourse/tasks/stage-e2e.yml
         params:
           - _JAVA_OPTIONS: -Djava.security.egd=file:/dev/./urandom
           - GIT_EMAIL: {{git-email}}
@@ -304,8 +304,8 @@ jobs:
         - get: m2
         - get: version
           resource: version
-          passed: [ stage-smoke ]
-          trigger: true
+          passed: [ stage-e2e ]
+          trigger: false
       - task: prod-deploy
         file: concourse/tasks/prod-deploy.yml
         params:

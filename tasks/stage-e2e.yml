@@ -15,4 +15,4 @@ outputs:
 run:
   path: /bin/bash
   args:
-    - concourse/tasks/stage-smoke.sh
+    - concourse/tasks/stage-e2e.sh

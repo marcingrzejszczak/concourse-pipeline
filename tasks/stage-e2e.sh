@@ -29,4 +29,4 @@ propagatePropertiesForTests ${projectArtifactId}
 readTestPropertiesFromFile
 
 echo "Retrieved application and stub runner urls"
-. ${SCRIPTS_OUTPUT_FOLDER}/stage_smoke.sh
+. ${SCRIPTS_OUTPUT_FOLDER}/stage_e2e.sh
