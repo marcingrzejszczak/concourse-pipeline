@@ -32,7 +32,7 @@ You need to fork only these. That's because only then will your user be able to 
   - https://github.com/spring-cloud-samples/github-webhook[Github Webhook]
   - https://github.com/spring-cloud-samples/github-analytics/[Github Analytics]
 
-==== Remove the tags
+=== Remove the tags
 
 If you keep playing around with your repo you might end up with some tags that
 point to versions that have not been deployed to your Artifactory. That often happens
@@ -44,7 +44,7 @@ all the tags.
 git tag -l | xargs -n 1 git push --delete origin
 ----
 
-==== Set up your local Maven to work with Artifactory
+=== Set up your local Maven to work with Artifactory
 
 First, you have to ensure that this section is present under your `~/.m2/settings.xml`
 
@@ -73,7 +73,31 @@ If you don't have this file just copy paste it from below
 </settings>
 ----
 
-==== Deploy the infra JARs to Artifactory
+=== Start Docker Compose
+
+Concourse + Artifactory can be ran locally. First we need to set it up - execute:
+
+In case you don't have Docker Machine:
+
+[source,bash]
+----
+git clone https://github.com/marcingrzejszczak/concourse-pipeline
+cd concourse-pipeline
+./start.sh
+----
+
+If you have Docker Machine (e.g. running on `192.168.99.100`):
+
+[source,bash]
+----
+git clone https://github.com/marcingrzejszczak/concourse-pipeline
+cd concourse-pipeline
+./start.sh 192.168.99.100
+----
+
+Then Concourse will be running on port `8080` and Artifactory `8081`.
+
+=== Deploy the infra JARs to Artifactory
 
 If you're running without Docker Machine
 
@@ -166,18 +190,6 @@ cf stop github-webhook
 cf stop github-eureka
 cf stop stubrunner
 ----
-
-=== Start Docker Compose
-
-Concourse + Artifactory can be ran locally. First we need to set it up - execute:
-
-`./setup-docker-compose.sh`
-
-Next just run
-  - `./start.sh` if you don't have Docker Machine
-  - `./start.sh 192.168.99.100` if your Docker Machine is running on `192.168.99.100`
-
-Then Concourse will be running on port `8080` and Artifactory `8081`.
 
 === Setup the `fly` CLI
 
