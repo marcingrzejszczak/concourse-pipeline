@@ -26,9 +26,6 @@ resources:
    type: docker-image
    source:
     repository: making/spring-pipeline-m2
-    username: {{docker-username}}
-    password: {{docker-password}}
-    email: {{docker-email}}
 jobs:
   - name: generate-version
     public: true
@@ -116,7 +113,7 @@ jobs:
           - CF_TEST_PASSWORD: {{cf-test-password}}
           - CF_TEST_ORG: {{cf-test-org}}
           - CF_TEST_SPACE: {{cf-test-space}}
-          - CF_API_URL: {{cf-api}}
+          - CF_TEST_API_URL: {{cf-test-api-url}}
 
   - name: test-smoke
     serial: true
@@ -151,7 +148,7 @@ jobs:
           - CF_TEST_PASSWORD: {{cf-test-password}}
           - CF_TEST_ORG: {{cf-test-org}}
           - CF_TEST_SPACE: {{cf-test-space}}
-          - CF_API_URL: {{cf-api}}
+          - CF_TEST_API_URL: {{cf-test-api-url}}
 
   - name: test-rollback-deploy
     serial: true
@@ -186,7 +183,7 @@ jobs:
           - CF_TEST_PASSWORD: {{cf-test-password}}
           - CF_TEST_ORG: {{cf-test-org}}
           - CF_TEST_SPACE: {{cf-test-space}}
-          - CF_API_URL: {{cf-api}}
+          - CF_TEST_API_URL: {{cf-test-api-url}}
 
   - name: test-rollback-smoke
     serial: true
@@ -221,7 +218,7 @@ jobs:
           - CF_TEST_PASSWORD: {{cf-test-password}}
           - CF_TEST_ORG: {{cf-test-org}}
           - CF_TEST_SPACE: {{cf-test-space}}
-          - CF_API_URL: {{cf-api}}
+          - CF_TEST_API_URL: {{cf-test-api-url}}
 
   - name: stage-deploy
     serial: true
@@ -256,7 +253,7 @@ jobs:
           - CF_STAGE_PASSWORD: {{cf-stage-password}}
           - CF_STAGE_ORG: {{cf-stage-org}}
           - CF_STAGE_SPACE: {{cf-stage-space}}
-          - CF_API_URL: {{cf-api}}
+          - CF_STAGE_API_URL: {{cf-stage-api-url}}
 
   - name: stage-e2e
     serial: true
@@ -291,7 +288,7 @@ jobs:
           - CF_STAGE_PASSWORD: {{cf-stage-password}}
           - CF_STAGE_ORG: {{cf-stage-org}}
           - CF_STAGE_SPACE: {{cf-stage-space}}
-          - CF_API_URL: {{cf-api}}
+          - CF_STAGE_API_URL: {{cf-stage-api-url}}
 
   - name: prod-deploy
     serial: true
@@ -326,7 +323,7 @@ jobs:
           - CF_PROD_PASSWORD: {{cf-prod-password}}
           - CF_PROD_ORG: {{cf-prod-org}}
           - CF_PROD_SPACE: {{cf-prod-space}}
-          - CF_API_URL: {{cf-api}}
+          - CF_PROD_API_URL: {{cf-prod-api-url}}
       - put: repo
         params:
           repository: out
@@ -366,7 +363,7 @@ jobs:
           - CF_PROD_PASSWORD: {{cf-prod-password}}
           - CF_PROD_ORG: {{cf-prod-org}}
           - CF_PROD_SPACE: {{cf-prod-space}}
-          - CF_API_URL: {{cf-api}}
+          - CF_PROD_API_URL: {{cf-prod-api-url}}
 
   - name: init-m2
     plan:

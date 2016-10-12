@@ -1,5 +1,7 @@
 #!/bin/bash
 
-CREDENTIALS=${1:-credentials.yml}
+PIPELINE_NAME=${1:-github-webhook}
+ALIAS=${2:-docker}
+CREDENTIALS=${3:-credentials.yml}
 
-echo y | fly -t main sp -p sample-pipeline -c pipeline.yml -l ${CREDENTIALS}
+echo y | fly -t "${ALIAS}" sp -p "${PIPELINE_NAME}" -c pipeline.yml -l "${CREDENTIALS}"
