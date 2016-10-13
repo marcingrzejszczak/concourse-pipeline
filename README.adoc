@@ -11,14 +11,26 @@ All in all there are the following projects taking part in the whole `microservi
 
 == Step by step
 
-- Fork repos and deploy infra to Artifactory
-- Start PCF Dev (if you don't want to use an existing one)
-- Start Docker Compose with Concourse + Artifactory
-- Setup the `fly` CLI
-- Setup your `credentials.yml`
-- Run the `github-webhook` pipeline
+If you want to just run the demo as far as possible using PCF Dev and Docker Compose
 
-=== Fork repos and deploy infra to Artifactory
+- <<fork,Fork repos>>
+- <<start,Start Jenkins and Artifactory>>
+- <<deploy,Deploy infra to Artifactory>>
+- <<pcfdev,Start PCF Dev (if you don't want to use an existing one)>>
+- <<fly,Setup the `fly` CLI>>
+- <<creds,Setup your `credentials.yml`>>
+- <<seed,Run the seed job>>
+- <<pipeline,Run the `github-webhook` pipeline>>
+
+Below you can find <<optional,optional>> steps needed to be taken when you want to customize the pipeline
+
+- <<env,Setup Jenkins env vars (if you want to use the demo defaults and you're using Docker Machine
+just check out the section on how to update the URL to Artifactory)>>
+- <<settings,Add `settings.xml` for Jenkins' master (you can skip this if you want to use our defaults)>>
+- <<misc,Setup Jenkins miscs (JDK installation, Groovy macro processing etc.)>>
+- <<credentials,Setup Jenkins credentials>>
+
+=== Fork repos[[fork]]
 
 There are 4 apps that are composing the pipeline
 
@@ -32,19 +44,7 @@ You need to fork only these. That's because only then will your user be able to 
   - https://github.com/spring-cloud-samples/github-webhook[Github Webhook]
   - https://github.com/spring-cloud-samples/github-analytics/[Github Analytics]
 
-=== Remove the tags
-
-If you keep playing around with your repo you might end up with some tags that
-point to versions that have not been deployed to your Artifactory. That often happens
-when you remove the volume that Artifactory is using. To fix this issue just remove
-all the tags.
-
-[source,bash]
-----
-git tag -l | xargs -n 1 git push --delete origin
-----
-
-=== Set up your local Maven to work with Artifactory
+==== Set up your local Maven to work with Artifactory
 
 First, you have to ensure that this section is present under your `~/.m2/settings.xml`
 
@@ -57,7 +57,7 @@ First, you have to ensure that this section is present under your `~/.m2/setting
 </server>
 ----
 
-If you don't have this file just copy paste it from below
+If you don't have this file just copy the one under `seed/settings.xml` or copy paste it from below
 
 [source,xml]
 ----
@@ -73,75 +73,39 @@ If you don't have this file just copy paste it from below
 </settings>
 ----
 
-=== Start Docker Compose
+=== Start Jenkins and Artifactory[[start]]
 
-Concourse + Artifactory can be ran locally. First we need to set it up - execute:
-
-In case you don't have Docker Machine:
-
-[source,bash]
-----
-git clone https://github.com/marcingrzejszczak/concourse-pipeline
-cd concourse-pipeline
-./start.sh
-----
-
-If you have Docker Machine (e.g. running on `192.168.99.100`):
+Concourse + Artifactory can be ran locally. To do that just execute the
+`start.sh` script from this repo.
 
 [source,bash]
 ----
-git clone https://github.com/marcingrzejszczak/concourse-pipeline
-cd concourse-pipeline
+git clone https://github.com/marcingrzejszczak/jenkins-pipeline
+cd jenkins-pipeline
 ./start.sh 192.168.99.100
 ----
 
+where `192.168.99.100` is an external URL of Concourse (equal to Docker-Machine ip).
+
 Then Concourse will be running on port `8080` and Artifactory `8081`.
 
-=== Deploy the infra JARs to Artifactory
+==== Deploy the infra JARs to Artifactory[[deploy]]
 
-If you're running without Docker Machine
-
-Github Eureka:
+When Artifactory is running, just execute the `deploy_infra.sh` script from this repo.
 
 [source,bash]
 ----
-git clone https://github.com/spring-cloud-samples/github-eureka
-cd github-eureka
-./mvnw clean deploy
+git clone https://github.com/marcingrzejszczak/jenkins-pipeline
+cd jenkins-pipeline
+./deploy_infra.sh
 ----
 
-Github Stub Runner:
+As a result both `eureka` and `stub runner` repos will be cloned, built
+and uploaded to Artifactory.
 
-[source,bash]
-----
-git clone https://github.com/spring-cloud-samples/github-analytics-stub-runner-boot
-cd github-analytics-stub-runner-boot
-./mvnw clean deploy
-----
+=== Start PCF Dev[[pcfdev]]
 
-If you're running with Docker Machine (e.g. Docker Machine running on 192.168.99.100):
-
-Github Eureka:
-
-[source,bash]
-----
-git clone https://github.com/spring-cloud-samples/github-eureka
-cd github-eureka
-./mvnw clean deploy -Ddistribution.management.release.url=http://192.168.99.100:8081/artifactory/libs-release-local
-----
-
-Github Stub Runner:
-
-[source,bash]
-----
-git clone https://github.com/spring-cloud-samples/github-analytics-stub-runner-boot
-cd github-analytics-stub-runner-boot
-./mvnw clean deploy -Ddistribution.management.release.url=http://192.168.99.100:8081/artifactory/libs-release-local
-----
-
-=== Start PCF Dev
-
-TIP: You can skip this step if you have CF installed already
+TIP: You can skip this step if you have CF installed and don't want to use PCF Dev
 
 You have to download and start PCF Dev. https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/install-pcf-dev[A link how to do it is available here.]
 
@@ -178,20 +142,7 @@ cf create-space pcfdev-prod
 cf set-space-role user pcfdev-org pcfdev-prod SpaceDeveloper
 ----
 
-IMPORTANT: Most likely you will run out of memory so when reaching the stage
-environment it's good to kill all apps on test. You can do it like this:
-
-E.g. for `github-webhook` app
-
-[source,bash]
-----
-cf target -o pcfdev-org -s pcfdev-test
-cf stop github-webhook
-cf stop github-eureka
-cf stop stubrunner
-----
-
-=== Setup the `fly` CLI
+=== Setup the `fly` CLI[[fly]]
 
 If you go to Concourse website you should see sth like this:
 
@@ -212,7 +163,7 @@ fly --version
 
 If `fly` is properly installed then it should print out the version.
 
-=== Setup your `credentials.yml`
+=== Setup your `credentials.yml` [[creds]]
 
 The repo comes with `credentials-sample.yml` which is set up with sample data (most credentials) are set to be applicable for PCF Dev. Copy this file to a new file `credentials.yml` (the file is added to .gitignore so don't worry that you'll push it with your passwords) and edit it as you wish. For our demo jus setup:
 
@@ -281,22 +232,32 @@ image::docs/concourse_pipeline.png[caption="Step 4: ", title="Your screen should
 {nbsp}
 {nbsp}
 
-image::docs/generate_version.png[caption="Step 5: ", title="Click 'generate-version'"]
+image::docs/start_pipeline.png[caption="Step 5: ", title="Unpause the pipeline by clicking in the top lefr corner and then clicking the `play` button"]
 
 {nbsp}
 {nbsp}
 
-image::docs/run_pipeline.png[caption="Step 6: ", title="Click `+` sign to start a new build"]
+image::docs/generate_version.png[caption="Step 6: ", title="Click 'generate-version'"]
 
 {nbsp}
 {nbsp}
 
-image::docs/concourse_pending.png[caption="Step 7: ", title="The job is pending"]
+image::docs/run_pipeline.png[caption="Step 7: ", title="Click `+` sign to start a new build"]
 
 {nbsp}
 {nbsp}
 
-image::docs/job_running.png[caption="Step 8: ", title="Job is pending in the main screen"]
+image::docs/concourse_pending.png[caption="Step 8: ", title="The job is pending"]
+
+{nbsp}
+{nbsp}
+
+image::docs/job_running.png[caption="Step 9: ", title="Job is pending in the main screen"]
+
+{nbsp}
+{nbsp}
+
+image::docs/running_pipeline.png[caption="Step 10: ", title="Job is running in the main screen"]
 
 == FAQ
 
@@ -343,4 +304,13 @@ contained them. To fix this, just remove the tags
 [source,bash]
 ----
 git tag -l | xargs -n 1 git push --delete origin
+----
+
+=== Can I see the output of a job from the terminal?
+
+Yes! Assuming that pieline name is `github-webhook` and job name is `build-and-upload` you can running
+
+[source,bash]
+----
+fly watch --job github-webhook/build-and-upload -t main
 ----
